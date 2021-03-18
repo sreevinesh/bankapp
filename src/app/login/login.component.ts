@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { DataService } from '../services/data.service';
 
 @Component({
   selector: 'app-login',
@@ -8,17 +9,11 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  accountDetails:any = {
-    1000: { accno: 1000, name: "userone", balance: 5000, password: "user1" },
-    1002: { accno: 1002, name: "usertwo", balance: 5000, password: "user2" },
-    1003: { accno: 1003, name: "userthree", balance: 7000, password: "user3" },
-    1004: { accno: 1004, name: "userfour", balance: 5000, password: "user4" },
-    1005: { accno: 1005, name: "userfive", balance: 3000, password: "user5" },
-  }
+  
   aim="haiii";
   accno="enter your uname";
   pswd="";
-  constructor(private router:Router) { }
+  constructor(private router:Router,private dataservice:DataService) { }
   ngOnInit(): void {
   }
   getUsername(event:any){
@@ -34,7 +29,7 @@ export class LoginComponent implements OnInit {
 
     var accNumber=this.accno;
     var pswd=this.pswd;
-    let dataset = this.accountDetails;
+    let dataset = this.dataservice.accountDetails;
     if(accNumber in dataset){
       var pswd1=dataset[accNumber].password
       if(pswd1==pswd){
