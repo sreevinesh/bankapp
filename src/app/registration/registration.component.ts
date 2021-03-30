@@ -1,5 +1,6 @@
 import { registerLocaleData } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DataService } from '../services/data.service';
 
@@ -12,17 +13,19 @@ export class RegistrationComponent implements OnInit {
   accno="";
   uname="";
   pswd="";
+  registerform=this.fb.group({
+    accno:['',[Validators.required,Validators.minLength(4),Validators.maxLength(4),Validators.pattern("[0-9]*")]],
+    uname:['',[Validators.required,Validators.pattern('[a-zA-Z]*')]],
+    pswd:['',[Validators.required,Validators.pattern('[a-zA-Z0-9]*')]]
+  })
 
-  constructor(private dataservice:DataService,private router:Router) { }
+  constructor(private dataservice:DataService,private router:Router,private fb:FormBuilder) { }
 
   ngOnInit(): void {
   }
     register(){
-      alert("registration sucessful");
-     var result= this.dataservice.register(this.accno,this.uname,this.pswd)
-      if(result){
-        this.router.navigateByUrl("")
-      }
+     //var result=
+    this.dataservice.register(this.registerform.value.accno,this.registerform.value.uname,this.registerform.value.pswd)
       
 
     }

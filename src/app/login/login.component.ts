@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DataService } from '../services/data.service';
 
@@ -10,10 +11,16 @@ import { DataService } from '../services/data.service';
 export class LoginComponent implements OnInit {
 
   
-  aim="haiii";
-  accno="enter your uname";
+  accno="";
   pswd="";
-  constructor(private router:Router,private dataservice:DataService) { }
+  
+
+  loginform=this.fb.group({
+    accno:['',[Validators.required,Validators.minLength(4),Validators.maxLength(4),Validators.pattern("[0-9]*")]],
+    pswd:['',[Validators.required,Validators.pattern('[0-9a-zA-Z]*')]]
+
+  })
+  constructor(private router:Router,private dataservice:DataService,private fb:FormBuilder) { }
   ngOnInit(): void {
   }
   getUsername(event:any){
@@ -26,25 +33,38 @@ export class LoginComponent implements OnInit {
     this.pswd=event.target.value;
   }
   login(){
+    if(this.loginform.valid){
+      var accno=this.loginform.value.accno
+      //console.log(accno);
+      var pswd=this.loginform.value.pswd
+     // console.log(pswd);
+      var result=this.dataservice.Login(this.loginform.value.accno,this.loginform.value.pswd)
+      
 
-    var accNumber=this.accno;
-    var pswd=this.pswd;
-    let dataset = this.dataservice.accountDetails;
-    if(accNumber in dataset){
-      var pswd1=dataset[accNumber].password
-      if(pswd1==pswd){
-        alert("login sucess");
-        this.router.navigateByUrl("dashboard")
-      }
-      else{
-        alert("incorrect password");
-      }
-    }
-    else{
-      alert("no user exist");
+
+      
     }
   }
 }
+
+//     var accNumber=this.loginform.value.accno;
+//     var pswd=this.loginform.value.pswd;
+//     let dataset = this.dataservice.accountDetails;
+//     if(accNumber in dataset){
+//       var pswd1=dataset[accNumber].password
+//       if(pswd1==pswd){
+//         alert("login sucess");
+//         this.router.navigateByUrl("dashboard")
+//       }
+//       else{
+//         alert("incorrect password");
+//       }
+//     }
+//     else{
+//       alert("no user exist");
+//     }
+//   }
+// }
 
 //         let us= document.querySelector("#pswd").value;
 

@@ -1,4 +1,4 @@
-<form (ngSubmit)="register()">
+<form [formGroup]="registerform" (ngSubmit)="register()">
 <div style="text-align: center;"  class="container">
     <h1 style="color:white; margin-top:30px;">State Bank Of India</h1>
   </div>
@@ -7,18 +7,23 @@
     <div style="width: 35%;height: 330px; ; background-color: white ; border-radius: 2px;" class="container">
       <div class="mb-3">
         <label style="margin-top: 7px;" for="acno" class="form-label">Account number</label>
-        <input type="text"[(ngModel)]="accno" name="accno" class="form-control" id="acno">
+       <!-- <input type="text "[(ngModel)]="accno" name="accno" class="form-control" id="acno"> -->
+        <input type="text" formControlName="accno" name="accno" class="form-control" id="acno">
+        <div *ngIf="this.registerform.get('accno')?.touched&&this.registerform.get('accno')?.errors" class="form-text">invalid account number</div>
       </div>
 
       <div class="mb-3">
         <label style="margin-top: 7px;" for="username" class="form-label">User Name</label>
-        <input type="text"[(ngModel)]="uname" name="uname" class="form-control" id="acno">
+        <!-- <input type="text"[(ngModel)]="uname" name="uname" class="form-control" id="acno"> -->
+        <input type="text" formControlName="uname" name="uname" class="form-control" id="uname">
+        <div *ngIf="this.registerform.get('uname')?.touched&&this.registerform.get('uname')?.errors" class="form-text">invalid username</div>
       </div>
 
       <div class="mb-3">
         <label for="pswd" class="form-label">password</label>
-        <input type="password" [(ngModel)]="pswd" name="pswd"  class="form-control" id="pswd">
-        <div id="emailHelp" class="form-text">We'll never share your password with anyone else.</div>
+        <!-- <input type="password" [(ngModel)]="pswd" name="pswd"  class="form-control" id="pswd"> -->
+        <input type="password" formControlName="pswd" name="pswd"  class="form-control" id="pswd">
+        <div *ngIf="this.registerform.get('pswd')?.touched&&this.registerform.get('pswd')?.errors" class="form-text">invalid password</div>
       </div>
       
       <div style="display: flex;justify-content: center;">

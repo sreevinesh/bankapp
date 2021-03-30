@@ -1,20 +1,20 @@
 <div style="text-align: center;"  class="container">
     <h1 style="color:white; margin-top:30px;">State Bank Of India</h1>
   </div>
-  
-  {{aim}}
 
-  <form>
+  <form [formGroup]="loginform" ([ngsubmit])="login">
     <div style="width: 35%;height: 330px; ; background-color: white ; border-radius: 2px;" class="container">
       <div class="mb-3">
         <label style="margin-top: 7px;" for="acno" class="form-label">Account number</label>
-        <input type="text" [(ngModel)]="accno" name="accno" class="form-control" id="acno">
-
+        <!-- <input type="text" [(ngModel)]="accno" name="accno" class="form-control" id="acno"> -->
+        <input type="text" formControlName="accno" name="accno" class="form-control" id="acno">
+        <div  *ngIf="this.loginform.get('accno')?.touched&&this.loginform.get('accno')?.errors"class="form-text">invalid password</div>
       </div>
       <div class="mb-3">
         <label for="pswd" class="form-label">password</label>
-        <input type="password" [(ngModel)]="pswd" name="pswd" class="form-control" id="pswd">
-        <div id="emailHelp" class="form-text">We'll never share your password with anyone else.</div>
+        <!-- <input type="password" [(ngModel)]="pswd" name="pswd" class="form-control" id="pswd"> -->
+        <input type="password" formControlName="pswd" name="pswd" class="form-control" id="pswd">
+        <div  *ngIf="this.loginform.get('pswd')?.touched&&this.loginform.get('pswd')?.errors"class="form-text">invalid password</div>
       </div>
   
       <div style="display: flex;justify-content: center;">
