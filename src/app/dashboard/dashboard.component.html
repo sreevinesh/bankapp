@@ -5,7 +5,7 @@
   <div class="row">
     <div class="col-4"></div>
     <div class="col-4">
-      <h1>WELCOME {{name}}</h1>
+      <h1>WELCOME {{name1}}</h1>
       <form [formGroup]="depositform" (ngSubmit)="deposit()">
         <div class="mb-3">
           <label for="kk" class="form-label">Account Number</label>
@@ -50,4 +50,8 @@
   </div>
   <div class="col-4"></div>
 
+</div>
+<div>
+  <app-delete-confirmation [item]="id"></app-delete-confirmation>
+  <button type="submit" class="btn btn-primary">Delete</button>
 </div>

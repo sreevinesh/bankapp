@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
   
 
   loginform=this.fb.group({
-    accno:['',[Validators.required,Validators.minLength(4),Validators.maxLength(4),Validators.pattern("[0-9]*")]],
+    accno:['',[Validators.required,Validators.minLength(4),Validators.pattern("[0-9]*")]],
     pswd:['',[Validators.required,Validators.pattern('[0-9a-zA-Z]*')]]
 
   })
@@ -34,18 +34,29 @@ export class LoginComponent implements OnInit {
   }
   login(){
     if(this.loginform.valid){
-      var accno=this.loginform.value.accno
-      //console.log(accno);
-      var pswd=this.loginform.value.pswd
-     // console.log(pswd);
-      var result=this.dataservice.Login(this.loginform.value.accno,this.loginform.value.pswd)
-      
+    //   var accno=this.loginform.value.accno
+    //   //console.log(accno);
+    //   var pswd=this.loginform.value.pswd
+    //  // console.log(pswd);
+      this.dataservice.Login(this.loginform.value.accno,this.loginform.value.pswd)
+      .subscribe((data:any)=>{
+        if(data){
+          alert("login sucessful")
+            this.router.navigateByUrl("dashboard")
+            localStorage.setItem('name',data.username)
+          }
+        }, (data) => {
+          alert(data.error.message);
+        })
 
+    }
+    else {
+      alert("invalid forms")
 
-      
     }
   }
 }
+    
 
 //     var accNumber=this.loginform.value.accno;
 //     var pswd=this.loginform.value.pswd;
